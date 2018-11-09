@@ -1,0 +1,68 @@
+<script>
+
+    $(function() {
+        console.log('create carousel - START');
+        google.script.run.withSuccessHandler(createCarousel).getPicsData();
+        $('#myCarousel').carousel({
+            interval: 2000
+        });
+        console.log('create carousel - FINISH');
+      });
+
+    $(document).ready(function() {
+       console.log('ready - START');
+       var imageSrc;
+       var imageAlt;
+
+      $('.carousel-item img').on('click', function(e) {
+        console.log(e);
+        imageSrc = $(this).data('big-image');
+        imageAlt = $(this).data('big-image-alt');
+        console.log('big-image: ' + imageSrc + ' big-image-alt: ' + imageAlt);
+      });
+      
+      // when the modal is opened autoplay it  
+      $('#myModal').on('shown.bs.modal', function(e) {
+        $("#image").attr('src', imageSrc);
+        console.log('imageSrc: ' + imageSrc);
+      });
+
+      // reset the modal image
+      $('#myModal').on('hide.bs.modal', function(e) {
+        $("#image").attr('src', '');
+      });
+      
+      console.log('ready - FINISH');
+    });
+
+    /**
+     *
+     */
+    function createCarousel(pics) {
+        var container = $('#myCarousel');
+        for (var i = 0; i < pics.length; i++) {
+            createCarouselItem(container, i, pics[i], true);
+        }
+    }
+
+    /**
+     * Creates a carousel item.
+     *
+     * container : the element that will hold the created item.
+     * index : index of the pic int the pic data collection.
+     * pic : object representing a picture obtained from google drive (properties : {id, url, alt}.
+     * lightbox : creates an anchor for a lightbox with a full size picture.
+     */
+    function createCarouselItem(container, index, pic, lightBox) {
+        var html = '<div class="carousel-item ' + (index == 0 ? "active" : "") + '">';
+        if (lightBox) {
+            html += '<img class="d-block w-100 img-fluid" src="' + pic['url'] + '" alt="' + pic['alt'] + '" data-toggle="modal" data-big-image="' + pic['fullUrl'] + '" data-big-image-alt="' + pic['alt'] + '" data-target="#myModal" />';
+        } else {
+            html += '<img class="d-block w-100" src="' + pic['url'] + '" alt="' + pic['alt'] + '" />';
+        }
+        html += '<div class="carousel-caption d-none d-md-block"><p>' + pic['alt'] + '</p></div>';
+        html += '</div>';
+        $(html).prependTo(container);
+        return false;
+    }
+</script>

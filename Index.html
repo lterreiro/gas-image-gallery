@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <base target="_top">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <?!= include('CssIncludes') ?>
+        <?!= include('Css') ?>
+</head>
+
+<body>
+    <div id="myCarousel" class="carousel slide container" data-ride="carousel">
+        <div class="carousel-inner"></div>
+        <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Anterior</span>
+        </a>
+        <a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Próximo</span>
+        </a>
+    </div>
+    <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">×</span>
+                  </button>
+                    <img id="image" src="" alt="" class="img-fluid">
+                </div>
+            </div>
+        </div>
+    </div>
+    <?!= include('JsIncludes') ?>
+        <?!= include('Js') ?>
+</body>
+
+</html>
