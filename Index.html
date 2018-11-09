@@ -9,25 +9,46 @@
 </head>
 
 <body>
-    <div id="myCarousel" class="carousel slide container" data-ride="carousel">
-        <div class="carousel-inner"></div>
-        <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="sr-only">Anterior</span>
-        </a>
-        <a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="sr-only">Próximo</span>
-        </a>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-auto align-self-center">
+                <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner">
+
+                    </div>
+                    <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Anterior</span>
+                    </a>
+                    <a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Próximo</span>
+                    </a>
+                </div>
+            </div>
+            <div class="col">
+                <div class="checkbox">
+                    <label>
+                        <input id="carousel-active" type="checkbox" data-toggle="toggle" data-onstyle="success" data-offstyle="danger" data-size="small">
+                    </label>
+                </div>
+            </div>
+        </div>
     </div>
-    <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
+
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-full" role="document">
             <div class="modal-content">
-                <div class="modal-body">
+                <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">×</span>
+                        <span aria-hidden="true">&times;</span>
                   </button>
-                    <img id="image" src="" alt="" class="img-fluid">
+                </div>
+                <div class="modal-body">
+                    <img src="" class="img-fluid">
+                </div>
+                <div class="modal-footer">
+                    <h2 class="text-info"></h2>
                 </div>
             </div>
         </div>

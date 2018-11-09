@@ -11,5 +11,8 @@
     "access": "ANYONE",
     "executeAs": "USER_ACCESSING"
   },
-  "exceptionLogging": "STACKDRIVER"
+  "exceptionLogging": "STACKDRIVER",
+  "executionApi": {
+    "access": "MYSELF"
+  }
 }

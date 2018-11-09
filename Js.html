@@ -1,40 +1,28 @@
 <script>
-
     $(function() {
-        console.log('create carousel - START');
         google.script.run.withSuccessHandler(createCarousel).getPicsData();
         $('#myCarousel').carousel({
             interval: 2000
         });
-        console.log('create carousel - FINISH');
-      });
-
-    $(document).ready(function() {
-       console.log('ready - START');
-       var imageSrc;
-       var imageAlt;
-
-      $('.carousel-item img').on('click', function(e) {
-        console.log(e);
-        imageSrc = $(this).data('big-image');
-        imageAlt = $(this).data('big-image-alt');
-        console.log('big-image: ' + imageSrc + ' big-image-alt: ' + imageAlt);
-      });
-      
-      // when the modal is opened autoplay it  
-      $('#myModal').on('shown.bs.modal', function(e) {
-        $("#image").attr('src', imageSrc);
-        console.log('imageSrc: ' + imageSrc);
-      });
-
-      // reset the modal image
-      $('#myModal').on('hide.bs.modal', function(e) {
-        $("#image").attr('src', '');
-      });
-      
-      console.log('ready - FINISH');
+        $('#carousel-active').bootstrapToggle({
+            onstyle: 'success',
+            offstyle: 'danger'
+        });
     });
 
+    $('#myModal').on('show.bs.modal', function(event) {
+        var img = $(event.relatedTarget);
+        var img_full = img.data('big-image');
+        var img_caption = img.data('big-image-alt');
+        var modal = $(this)
+        modal.find('.modal-footer h2').text(img_caption)
+        modal.find('.modal-body img').attr('src', img_full);
+        $('#myCarousel').carousel('pause');
+    });
+
+    $('#myModal').on('hidden.bs.modal', function(event) {
+        $('#myCarousel').carousel('cycle');
+    });
     /**
      *
      */
@@ -53,14 +41,10 @@
      * pic : object representing a picture obtained from google drive (properties : {id, url, alt}.
      * lightbox : creates an anchor for a lightbox with a full size picture.
      */
-    function createCarouselItem(container, index, pic, lightBox) {
+    function createCarouselItem(container, index, pic) {
         var html = '<div class="carousel-item ' + (index == 0 ? "active" : "") + '">';
-        if (lightBox) {
-            html += '<img class="d-block w-100 img-fluid" src="' + pic['url'] + '" alt="' + pic['alt'] + '" data-toggle="modal" data-big-image="' + pic['fullUrl'] + '" data-big-image-alt="' + pic['alt'] + '" data-target="#myModal" />';
-        } else {
-            html += '<img class="d-block w-100" src="' + pic['url'] + '" alt="' + pic['alt'] + '" />';
-        }
-        html += '<div class="carousel-caption d-none d-md-block"><p>' + pic['alt'] + '</p></div>';
+        html += '<img class="d-block w-100 img-fluid" src="' + pic['url'] + '" alt="' + pic['alt'] + '" data-toggle="modal" data-target="#myModal" data-big-image="' + pic['fullUrl'] + '" data-big-image-alt="' + pic['alt'] + '"  />';
+        html += '<div class="carousel-caption d-none d-md-block"><p class="h2 text-info">' + pic['alt'] + '</p></div>';
         html += '</div>';
         $(html).prependTo(container);
         return false;
